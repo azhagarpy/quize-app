@@ -64,51 +64,52 @@ export function SupabaseProvider({ children }: { children: React.ReactNode }) {
       console.error("Error in ensureProfile:", error)
     }
   }
-
   useEffect(() => {
     const getSession = async () => {
+      console.log("called getSession");
       try {
         const {
           data: { session },
-        } = await supabase.auth.getSession()
-        console.log(session,"********")
-        console.log(session?.user,"********")
-
+        } = await supabase.auth.getSession();
+        console.log(session, "********");
+        console.log(session?.user, "********");
+  
         if (session?.user) {
-          setUser(session.user)
+          setUser(session.user);
           // Ensure profile exists
-          await ensureProfile(session.user)
+          await ensureProfile(session.user);
         } else {
-          setUser(null)
+          setUser(null);
         }
       } catch (error) {
-        console.error("Error getting session:", error)
+        console.error("Error getting session:", error);
       } finally {
-        setLoading(false)
-        setIsInitialized(true)
+        setLoading(false);
+        setIsInitialized(true);
       }
-    }
-
-    getSession()
-
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange(async (_event, session) => {
-      if (session?.user) {
-        setUser(session.user)
-        // Ensure profile exists
-        await ensureProfile(session.user)
-      } else {
-        setUser(null)
+    };
+  
+    getSession();
+  
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      async (_event, session) => {
+        if (session?.user) {
+          setUser(session.user);
+          // Ensure profile exists
+          await ensureProfile(session.user);
+        } else {
+          setUser(null);
+        }
+  
+        router.refresh();
       }
-
-      router.refresh()
-    })
-
+    );
+  
     return () => {
-      subscription.unsubscribe()
-    }
-  }, [router, supabase])
+      authListener?.subscription?.unsubscribe();
+    };
+  }, [router, supabase]);
+  
 
   console.log("isInitialized",isInitialized);
   // Provide a loading state while the provider is initializing
