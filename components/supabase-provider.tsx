@@ -66,13 +66,10 @@ export function SupabaseProvider({ children }: { children: React.ReactNode }) {
   }
   useEffect(() => {
     const getSession = async () => {
-      console.log("called getSession");
       try {
         const {
           data: { session },
         } = await supabase.auth.getSession();
-        console.log(session, "********");
-        console.log(session?.user, "********");
   
         if (session?.user) {
           setUser(session.user);
@@ -81,11 +78,11 @@ export function SupabaseProvider({ children }: { children: React.ReactNode }) {
         } else {
           setUser(null);
         }
-      } catch (error) {
-        console.error("Error getting session:", error);
-      } finally {
+
         setLoading(false);
         setIsInitialized(true);
+      } catch (error) {
+        console.error("Error getting session:", error);
       }
     };
   
@@ -111,7 +108,6 @@ export function SupabaseProvider({ children }: { children: React.ReactNode }) {
   }, [router, supabase]);
   
 
-  console.log("isInitialized",isInitialized);
   // Provide a loading state while the provider is initializing
   if (!isInitialized) {
     return (
