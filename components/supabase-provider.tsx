@@ -35,10 +35,13 @@ export function SupabaseProvider({ children }: { children: React.ReactNode }) {
       console.log(`Checking profile for user ID: ${user.id}`);
 
       // Check if the profile exists
-      const { data: existingProfile, error: profileError } = await supabase
+
+      const
+        {data : existingProfile,error: profileError } = await supabase 
         .from("profiles")
         .select("id")
         .eq("id", user.id)
+        .single();
 
       if (profileError && profileError.code !== "PGRST116") {
         console.error("Error checking profile existence:", profileError.message);
