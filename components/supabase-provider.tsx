@@ -36,8 +36,7 @@ export function SupabaseProvider({ children }: { children: React.ReactNode }) {
 
       // Check if the profile exists
 
-      const
-        {data : existingProfile,error: profileError } = await supabase 
+      const { data : existingProfile,error: profileError } = await supabase 
         .from("profiles")
         .select()
         .eq("id", user.id)
@@ -138,7 +137,8 @@ export function SupabaseProvider({ children }: { children: React.ReactNode }) {
     // Cleanup function to unsubscribe from auth changes
     return () => {
       console.log("Unsubscribing from auth state changes.");
-      authListener?.unsubscribe();
+      authListener.subscription.unsubscribe()
+
     };
   }, [router]);
 
