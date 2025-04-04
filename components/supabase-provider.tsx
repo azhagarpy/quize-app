@@ -80,6 +80,7 @@ export function SupabaseProvider({ children }: { children: React.ReactNode }) {
 
         setLoading(false);
         setIsInitialized(true);
+        console.log(user,"user")
       } catch (error) {
         console.error("Error getting session:", error);
       }
