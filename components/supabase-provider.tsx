@@ -39,7 +39,6 @@ export function SupabaseProvider({ children }: { children: React.ReactNode }) {
         .from("profiles")
         .select("id")
         .eq("id", user.id)
-        .single();
 
       if (profileError && profileError.code !== "PGRST116") {
         console.error("Error checking profile existence:", profileError.message);
