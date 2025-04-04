@@ -27,6 +27,7 @@ export function SupabaseProvider({ children }: { children: React.ReactNode }) {
 
   // Update the ensureProfile function to better handle the duplicate key error
   const ensureProfile = async (user: User) => {
+    console.log(user, "ensureProfile called")
     try {
       // First check if profile exists
       const { data: existingProfile } = await supabase.from("profiles").select("id").eq("id", user.id).single()
@@ -109,6 +110,7 @@ export function SupabaseProvider({ children }: { children: React.ReactNode }) {
     }
   }, [router, supabase])
 
+  console.log("isInitialized",isInitialized);
   // Provide a loading state while the provider is initializing
   if (!isInitialized) {
     return (
