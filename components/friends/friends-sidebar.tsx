@@ -406,7 +406,7 @@ export function FriendsSidebar({ userId, roomId }: { userId: string; roomId?: st
   const offlineFriends = friends.filter((friend) => !friend.is_online)
 
   return (
-    <div className="fixed right-0 top-0 h-screen z-50">
+    <div className="fixed right-0 top-0 h-screen z-50">aaaaaaaaaaaaa
       <div
         className={`transition-all duration-300 ease-in-out h-full ${isOpen ? "translate-x-0" : "translate-x-full"}`}
       >
