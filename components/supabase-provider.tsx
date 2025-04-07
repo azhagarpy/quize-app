@@ -136,10 +136,10 @@ export function SupabaseProvider({ children }: { children: React.ReactNode }) {
     );
 
     // Cleanup function to unsubscribe from auth changes
-    return () => {
-      console.log("Unsubscribing from auth state changes.");
-      authListener.subscription.unsubscribe()
-    };
+    //return () => {
+      //console.log("Unsubscribing from auth state changes.");
+      //authListener.subscription.unsubscribe()
+    //};
   }, [router]);
 
   // Show a loading spinner while initializing
