@@ -102,6 +102,7 @@ export function SupabaseProvider({ children }: { children: React.ReactNode }) {
         if (session?.user) {
           console.log(`User found: ${session.user.email}`);
           setUser(session.user);
+          console.log("ensureProfile 1")
           await ensureProfile(session.user);
         } else {
           console.log("No active session.");
@@ -125,6 +126,7 @@ export function SupabaseProvider({ children }: { children: React.ReactNode }) {
         if (session?.user) {
           console.log(`User signed in: ${session.user.email}`);
           setUser(session.user);
+          console.log("ensureProfile 2")
           await ensureProfile(session.user);
         } else {
           console.log("User signed out.");
