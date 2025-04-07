@@ -43,6 +43,9 @@ export function SupabaseProvider({ children }: { children: React.ReactNode }) {
         .eq("id", user.id)
         .single();
 
+
+      console.log("existingProfile", existingProfile,profileError )
+
       if (profileError && profileError.code !== "PGRST116") {
         console.error("Error checking profile existence:", profileError.message);
         return;
@@ -56,7 +59,6 @@ export function SupabaseProvider({ children }: { children: React.ReactNode }) {
       console.log(`Creating profile for user ID: ${user.id}`);
 
       // Delay to ensure the auth user is fully created
-      await new Promise((resolve) => setTimeout(resolve, 1000));
 
       // Generate a default username if none exists
       const username = user.user_metadata?.username || `user_${user.id.substring(0, 8)}`;
